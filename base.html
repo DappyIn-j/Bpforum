@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>{{title}}</title>
+         {% load static %}
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+         <link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}">
+          <!-- <link rel="stylesheet" href="style.css"> -->
+     </head>
+     <body>
+         
+         <header>
+            <div class="header">
+                <nav class="navigation hide" id="navigation">
+                    <ul class="nav-list">
+                        <span class="close-icon" onclick="showIconBar()"><i class="fa fa-close"></i></span>
+                        <li class="nav-item">
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'signup' %}">Sigup</a>
+                            <a href="{% url 'signin' %}">Sigin</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+    
+                </nav>
+                <a href="#" class="bar-icon" id="iconBar" onclick="hideIconBar()"><i class="fa fa-bars"></i></a>
+                <div class="brand">Bp forum</div>
+                {% if user.is_authenticated %}
+                <div style="font-size: 50px;font-weight: 300px;margin-left:100px ;"><a href="{% url 'create_post' %}">+</a></div>
+                {% endif %}
+            </div>
+            <form action ="{% url 'search_result' %}" role="form" method="GET">
+            <div class="search">
+                <div>
+                    <select name="" id="">
+                        <option value="">Everything</option>
+                        <option value="">Titles</option>
+                        <option value="">Description</option>
+                    </select>
+                    <input type="text" placeholder="search" name="q">
+                    <button type="submit" name="search"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            </form>
+        </header>
+        {%block content%}
+        {% endblock content%}
+        
+    
+        <footer>
+            <span>&copy;&nbsp;Artem Ivanov | №9</span>
+        </footer>
+    
+    
+        <!-- <script src="main.js"></script> -->
+        <script src="{% static 'myapp/main.js' %}"></script> 
+     </body>
+     </html>
